@@ -1,0 +1,26 @@
+<div style="border: 1px solid red" class="user-component">
+  <h1>User Component</h1>
+  <li *ngFor="let user of users" (click)="onSelect(user)"><!--routerLink="detail/{{user.id}}"-->
+    {{user.username}}
+    {{user.password}}
+  </li>
+</div>
+
+<div class="col-md-6 col-md-offset-3">
+  <h2>Register</h2>
+  <form name="form" (ngSubmit)="create()" #f="ngForm" novalidate>
+    <div class="form-group">
+      <label for="username">username: </label>
+      <input type="text" class="form-control" name="id" [(ngModel)]="model.username" #username="ngModel" required />
+    </div>
+    <div class="form-group">
+      <label for="password">Last Name</label>
+      <input type="text" class="form-control" name="password" [(ngModel)]="model.password" #lastName="ngModel" required />
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary">Register</button>
+    </div>
+  </form>
+</div>
+
+<app-user-detail [user]="selectedUser"></app-user-detail>
