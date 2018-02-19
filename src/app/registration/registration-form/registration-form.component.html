@@ -1,0 +1,36 @@
+<div class="container">
+  <div [hidden]="submitted">
+    <h1>Hero Form</h1>
+    <form (ngSubmit)="create()" #heroForm="ngForm">
+
+      <div class="form-group">
+        <label for="username">username: </label>
+        <input type="text" class="form-control" id="username" required [(ngModel)]="hero.username" name="username" #name="ngModel">
+      </div>
+
+      <div class="form-group">
+        <label for="password">password: </label>
+        <input type="text" class="form-control" id="password" [(ngModel)]="hero.password" name="password">
+      </div>
+
+      <button type="submit" class="btn btn-success">Submit</button><!--(click)="submitted=false"-->
+    </form>
+  </div>
+
+  <div [hidden]="!submitted">
+    <h2>Correct profile: </h2>
+
+    <div class="row">
+      <div class="col-xs-3">username: </div>
+      <div class="col-xs-9  pull-left">{{ hero.username }}</div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-3">password: </div>
+      <div class="col-xs-9 pull-left">{{ hero.password }}</div>
+    </div>
+
+    <br>
+    <button class="btn btn-primary" (click)="submitted=false">Edit</button>
+  </div>
+</div>
