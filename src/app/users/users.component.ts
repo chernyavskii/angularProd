@@ -33,7 +33,6 @@ export class UsersComponent implements OnInit {
   }
 
   create(): void {
-    this.users.push(this.model as Hero);
     this.userService.createUser(this.model);
   }
 

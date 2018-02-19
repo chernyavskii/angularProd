@@ -3,7 +3,6 @@ import {Hero} from '../models/user';
 import 'rxjs/add/operator/toPromise';
 import {Http} from '@angular/http';
 import { Headers } from '@angular/http';
-import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class UsersService {
@@ -35,12 +34,12 @@ export class UsersService {
       this.http
         .post(this.loginURL, JSON.stringify(user), {headers: this.header}).toPromise()
         .then((response => {
-          console.log(response);
-          return response.json();
+          console.log("RESPONSE" + response.json());
+          resolve(response.json());
         }))
-        .catch((error => {
-          console.log(error);
-          return error.json();
+        .catch((error =>  {
+          console.log("CATCH: " + error);
+          reject(error);
         }));
     });
   }

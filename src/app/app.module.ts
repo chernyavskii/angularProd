@@ -10,13 +10,15 @@ import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './/app-routing.module';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { RegistrationFormComponent } from './registration/registration-form/registration-form.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     UsersComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    RegistrationFormComponent
   ],
   imports: [
     BrowserModule,

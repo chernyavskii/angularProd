@@ -1,6 +1,6 @@
-<div style="border: 1px solid red" class="user-component">
+<!--<div style="border: 1px solid red" class="user-component">
   <h1>User Component</h1>
-  <li *ngFor="let user of users" (click)="onSelect(user)"><!--routerLink="detail/{{user.id}}"-->
+  <li *ngFor="let user of users" (click)="onSelect(user)">&lt;!&ndash;routerLink="detail/{{user.id}}"&ndash;&gt;
     {{user.username}}
     {{user.password}}
   </li>
@@ -21,6 +21,7 @@
       <button class="btn btn-primary">Register</button>
     </div>
   </form>
-</div>
-
+</div>-->
 <app-user-detail [user]="selectedUser"></app-user-detail>
+
+<app-registration-form></app-registration-form>
