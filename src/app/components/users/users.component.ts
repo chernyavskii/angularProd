@@ -21,6 +21,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.getUsers();
+    this.authenticated();
   }
 
   getUsers() {
@@ -40,6 +41,7 @@ export class UsersComponent implements OnInit {
   }
 
   authenticated() {
+    console.log("authenticatedauthenticated:" + this.userService.authenticated);
     return this.userService.authenticated;
   }
 

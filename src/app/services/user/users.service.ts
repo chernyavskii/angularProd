@@ -10,9 +10,9 @@ export class UsersService {
 
   private usersURL = 'http://localhost:8081/users/';
   private registrationURL = 'http://localhost:8081/registration';
-/*
-  let url = `${this.heroesUrl}/${hero.id}`;
-*/
+  /*
+    let url = `${this.heroesUrl}/${hero.id}`;
+  */
 
 ///////////////////
   authenticated = false;
@@ -20,10 +20,10 @@ export class UsersService {
   private loginURL = 'http://localhost:8081/login';
 
 
+  private header = new Headers({'Content-Type': 'application/json'});
 
-
-  private header = new Headers({ 'Content-Type': 'application/json' });
-  constructor(private http: Http) { }
+  constructor(private http: Http) {
+  }
 
   getUsers(): Promise<User[]> {
     return new Promise((resolve, reject) => {
@@ -50,7 +50,7 @@ export class UsersService {
         .then((response => {
           resolve(response.json());
         }))
-        .catch((error =>  {
+        .catch((error => {
           reject(error);
         }));
     });
@@ -64,26 +64,26 @@ export class UsersService {
 
 
   testAuth(credentials: User): Promise<any> {
-    const myHeaders = new Headers(credentials ? {
+    console.log("User: +-+ " + JSON.stringify(credentials));
+    /*const myHeaders = new Headers(credentials ? {
       authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
     } : {});
     myHeaders.append('Content-Type', 'application/json');
 
-    console.log("myHeaders: " + JSON.stringify(myHeaders));
+    console.log("myHeaders: " + JSON.stringify(myHeaders));*/
 
     return new Promise((resolve, reject) => {
       this.http
         .post(this.loginURL, JSON.stringify(credentials), {headers: this.header}).toPromise()
         .then((response => {
-          if(response != null) {
-            this.authenticated = true;
+          if (response.ok) {
+            resolve(this.authenticated = true);
           } else {
-            this.authenticated = false;
+            resolve(this.authenticated = false);
           }
         }))
-        .catch((error =>  {
-          reject(error);
-        }));
+        .catch(error => reject(error));
     });
   }
+
 }
