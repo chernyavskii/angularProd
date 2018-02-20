@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Hero} from '../models/user';
+import {User} from '../models/user';
 import {UsersService} from '../services/users.service';
 
 @Component({
@@ -10,7 +10,7 @@ import {UsersService} from '../services/users.service';
 export class UserDetailComponent implements OnInit {
 
   @Input()
-  user: Hero;
+  user: User;
 
   constructor(private userService: UsersService) { }
 

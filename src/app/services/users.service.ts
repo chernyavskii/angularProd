@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Hero} from '../models/user';
+import {User} from '../models/user';
 import 'rxjs/add/operator/toPromise';
 import {Http} from '@angular/http';
 import { Headers } from '@angular/http';
@@ -7,32 +7,36 @@ import { Headers } from '@angular/http';
 @Injectable()
 export class UsersService {
 
-  private usersURL = 'http://localhost:8081/heroes/test';
-  private testURL = 'http://localhost:8081/heroes/mnb';
-
-  private loginURL = 'http://localhost:8081/login';
-
-
+  private usersURL = 'http://localhost:8081/users/';
+  private registrationURL = 'http://localhost:8081/registration';
+/*
+  let url = `${this.heroesUrl}/${hero.id}`;
+*/
   private header = new Headers({ 'Content-Type': 'application/json' });
   constructor(private http: Http) { }
 
-  getUsers(): Promise<Hero[]> {
-    return this.http.get(this.usersURL)
-      .toPromise()
-      .then(response => response.json() as Hero[])
-      .catch(this.handleError);
+  getUsers(): Promise<User[]> {
+    return new Promise((resolve, reject) => {
+      this.http
+        .get(this.usersURL).toPromise()
+        .then((response) => {
+          resolve(response.json());
+        })
+        .catch((error) => {
+        });
+    });
   }
 
-  getUser(id: number): Promise<Hero> {
+  getUser(id: number): Promise<User> {
     return this.getUsers()
       .then(users => users.find(user => user.id === id))
       .catch(this.handleError);
   }
 
-  createUser(user: Hero): Promise<Hero> {
+  registration(user: User): Promise<User> {
     return new Promise((resolve, reject) => {
       this.http
-        .post(this.loginURL, JSON.stringify(user), {headers: this.header}).toPromise()
+        .post(this.registrationURL, JSON.stringify(user), {headers: this.header}).toPromise()
         .then((response => {
           console.log("RESPONSE" + response.json());
           resolve(response.json());
@@ -43,6 +47,7 @@ export class UsersService {
         }));
     });
   }
+
 
   private handleError(error: any): Promise<any> {
     console.error('An error: ', error);

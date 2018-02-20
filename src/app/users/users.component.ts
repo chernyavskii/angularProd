@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {Hero} from '../models/user';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {User} from '../models/user';
 import {UsersService} from '../services/users.service';
 
 @Component({
@@ -9,31 +9,30 @@ import {UsersService} from '../services/users.service';
 })
 export class UsersComponent implements OnInit {
 
-  users: Hero[];
-
-  selectedUser: Hero;
-
-  model: any = {};
+  users: User[];
+  selectedUser: User;
+  newUser: User;
 
   constructor(private userService: UsersService) { }
 
   ngOnInit() {
     this.getUsers();
-    this.create();
   }
 
-  getUsers(): void {
-    this.userService.getUsers()
-      .then(heroes => this.users = heroes);
+  getUsers() {
+    let misha = this.userService.getUsers()
+      .then(res => {
+        this.users = res;
+      })
+      .catch(err => err.toString());
   }
 
-  onSelect(user: Hero): void {
+  onSelect(user: User): void {
     this.selectedUser = user;
-    console.log("Enter");
   }
 
-  create(): void {
-    this.userService.createUser(this.model);
+  updateListOfUsers(user: User) {
+    this.users.push(user);
   }
 
 }

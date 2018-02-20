@@ -1,4 +1,4 @@
-+ export class Hero {
++ export class User {
   + id = 0;
   + name = '';
   + addresses: Address[];
