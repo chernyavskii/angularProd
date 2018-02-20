@@ -62,7 +62,7 @@ export class UsersService {
     return Promise.reject(error.message || error);
   }
 
-
+заголовки берешь не те, поменяй на myHeaders, раскомментируй
   testAuth(credentials: User): Promise<any> {
     console.log("User: +-+ " + JSON.stringify(credentials));
     /*const myHeaders = new Headers(credentials ? {
