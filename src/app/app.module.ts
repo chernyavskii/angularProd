@@ -11,6 +11,8 @@ import {HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './/app-routing.module';
 import { UserDetailComponent } from './components/users/user-detail/user-detail.component';
 import { RegistrationFormComponent } from './components/index/registration-form/registration-form.component';
+import { LoginFormComponent } from './components/index/login-form/login-form/login-form.component';
+import { HomeTestComponent } from './components/index/home-test/home-test.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { RegistrationFormComponent } from './components/index/registration-form/
     AppComponent,
     UsersComponent,
     UserDetailComponent,
-    RegistrationFormComponent
+    RegistrationFormComponent,
+    LoginFormComponent,
+    HomeTestComponent
   ],
   imports: [
     BrowserModule,

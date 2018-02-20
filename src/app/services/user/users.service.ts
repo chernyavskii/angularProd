@@ -3,6 +3,7 @@ import 'rxjs/add/operator/toPromise';
 import {Http} from '@angular/http';
 import { Headers } from '@angular/http';
 import {User} from '../../models/user';
+import {HttpHeaders} from '@angular/common/http';
 
 @Injectable()
 export class UsersService {
@@ -12,6 +13,15 @@ export class UsersService {
 /*
   let url = `${this.heroesUrl}/${hero.id}`;
 */
+
+///////////////////
+  authenticated = false;
+
+  private loginURL = 'http://localhost:8081/login';
+
+
+
+
   private header = new Headers({ 'Content-Type': 'application/json' });
   constructor(private http: Http) { }
 
@@ -38,11 +48,9 @@ export class UsersService {
       this.http
         .post(this.registrationURL, JSON.stringify(user), {headers: this.header}).toPromise()
         .then((response => {
-          console.log("RESPONSE" + response.json());
           resolve(response.json());
         }))
         .catch((error =>  {
-          console.log("CATCH: " + error);
           reject(error);
         }));
     });
@@ -52,5 +60,30 @@ export class UsersService {
   private handleError(error: any): Promise<any> {
     console.error('An error: ', error);
     return Promise.reject(error.message || error);
+  }
+
+
+  testAuth(credentials: User): Promise<any> {
+    const myHeaders = new Headers(credentials ? {
+      authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
+    } : {});
+    myHeaders.append('Content-Type', 'application/json');
+
+    console.log("myHeaders: " + JSON.stringify(myHeaders));
+
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(this.loginURL, JSON.stringify(credentials), {headers: this.header}).toPromise()
+        .then((response => {
+          if(response != null) {
+            this.authenticated = true;
+          } else {
+            this.authenticated = false;
+          }
+        }))
+        .catch((error =>  {
+          reject(error);
+        }));
+    });
   }
 }

@@ -12,6 +12,10 @@ export class UsersComponent implements OnInit {
   users: User[];
   selectedUser: User;
   newUser: User;
+/*
+  authenticated = false;
+*/
+
 
   constructor(private userService: UsersService) { }
 
@@ -33,6 +37,10 @@ export class UsersComponent implements OnInit {
 
   updateListOfUsers(user: User) {
     this.users.push(user);
+  }
+
+  authenticated() {
+    return this.userService.authenticated;
   }
 
 }

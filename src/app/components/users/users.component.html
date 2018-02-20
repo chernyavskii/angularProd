@@ -1,3 +1,4 @@
+<div [hidden]="!authenticated()">
 <div style="border: 1px solid red" class="user-component">
   <h1>User Component</h1>
   <h2 style="color: forestgreen;">List of users: </h2>
@@ -16,3 +17,10 @@
 <app-user-detail [user]="selectedUser"></app-user-detail>
 
 <app-registration-form (newUserEvent)="updateListOfUsers($event)" ></app-registration-form>
+<!--<h1>Greeting</h1>-->
+
+  <!--<h2> ВСЁ ХОРОШО </h2>-->
+</div>
+<div [hidden]="authenticated()">
+  <p>Login to see your greeting</p>
+</div>
