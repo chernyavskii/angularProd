@@ -1,5 +1,6 @@
 <div style="border: 1px solid red" class="user-component">
   <h1>User Component</h1>
+  <h2 style="color: forestgreen;">List of users: </h2>
   <li *ngFor="let user of users" (click)="onSelect(user)"><!--&lt;!&ndash;routerLink="detail/{{user.id}}"&ndash;&gt;-->
     {{user.username}}
     {{user.password}}
@@ -14,4 +15,4 @@
 
 <app-user-detail [user]="selectedUser"></app-user-detail>
 
-<app-registration-form (newUserMisha)="updateListOfUsers($event)" ></app-registration-form>
+<app-registration-form (newUserEvent)="updateListOfUsers($event)" ></app-registration-form>

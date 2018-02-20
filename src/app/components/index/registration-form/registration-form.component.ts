@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {UsersService} from '../../services/users.service';
-import {User} from '../../models/user';
+import {UsersService} from '../../../services/user/users.service';
+import {User} from '../../../models/user';
 
 @Component({
   selector: 'app-registration-form',
@@ -11,7 +11,7 @@ export class RegistrationFormComponent implements OnInit {
 
   user = new User();
   submitted = false;
-  @Output() newUserMisha = new EventEmitter();
+  @Output() newUserEvent = new EventEmitter();
 
   constructor(private userService: UsersService) { }
 
@@ -20,10 +20,10 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   registration() {
-    let asd = this.userService.registration(this.user)
+    let result = this.userService.registration(this.user)
       .then(res => {
         this.user = res;
-        this.newUserMisha.emit(this.user);
+        this.newUserEvent.emit(this.user);
       })
       .catch(err => err.toString());
     this.submitted = true;

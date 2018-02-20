@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {User} from '../models/user';
-import {UsersService} from '../services/users.service';
+import {User} from '../../models/user';
+import {UsersService} from '../../services/user/users.service';
 
 @Component({
   selector: 'app-users',
@@ -20,7 +20,7 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers() {
-    let misha = this.userService.getUsers()
+    let result = this.userService.getUsers()
       .then(res => {
         this.users = res;
       })

@@ -3,14 +3,14 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import { UsersComponent } from './users/users.component';
-import {UsersService} from './services/users.service';
+import { UsersComponent } from './components/users/users.component';
+import {UsersService} from './services/user/users.service';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './/app-routing.module';
-import { UserDetailComponent } from './user-detail/user-detail.component';
-import { RegistrationFormComponent } from './registration/registration-form/registration-form.component';
+import { UserDetailComponent } from './components/users/user-detail/user-detail.component';
+import { RegistrationFormComponent } from './components/index/registration-form/registration-form.component';
 
 
 @NgModule({
