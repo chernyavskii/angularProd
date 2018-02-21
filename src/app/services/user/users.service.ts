@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
-import {Http} from '@angular/http';
+import {Http, RequestOptions} from '@angular/http';
 import { Headers } from '@angular/http';
 import {User} from '../../models/user';
 import {HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class UsersService {
 
   private usersURL = 'http://localhost:8081/users/';
   private registrationURL = 'http://localhost:8081/registration';
+
+  private mainURL = 'http://localhost:8081/main';
+
   /*
     let url = `${this.heroesUrl}/${hero.id}`;
   */
@@ -23,6 +27,13 @@ export class UsersService {
   private header = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) {
+    let _build = (<any>http)._backend._browserXHR.build;
+    (<any>http)._backend._browserXHR.build = () => {
+      let _xhr = _build();
+      _xhr.withCredentials = true;
+      console.log("XHR ; " + JSON.stringify(_xhr));
+      return _xhr;
+    };
   }
 
   getUsers(): Promise<User[]> {
@@ -62,15 +73,58 @@ export class UsersService {
     return Promise.reject(error.message || error);
   }
 
+  testAuth (loginDetails: User): Observable<any> { // custom class, may be empty for now
 
-  testAuth(credentials: User): Promise<any> {
+    let headers = new Headers({
+      'Authorization': 'Basic ' + btoa(loginDetails.username + ':' + loginDetails.password),
+      'X-Requested-With': 'XMLHttpRequest' // to suppress 401 browser popup
+    });
+
+    let options = new RequestOptions({
+      headers: headers
+    });
+    let asd = this
+      .http
+      .post(this.loginURL, loginDetails, options);
+    return asd;
+   /* .toPromise().then(res => {
+        if (res.status !== 200) {
+          this.authenticated = false;
+        } else {
+          this.authenticated = true;
+        }
+      })
+      .catch(err => {
+        err.toString();
+        console.log(err);
+      });*/
+    /*
+          .catch(e => this.handleError(e)); // handle 401 error - bad credentials
+    */
+  }
+
+  getMainTest(): Promise<User> {
+    return new Promise((resolve, reject) => {
+      this.http
+        .get(this.mainURL).toPromise()
+        .then((response) => {
+          resolve(response.json());
+        })
+        .catch((error) => {
+        });
+    });
+  }
+
+
+
+  /*testAuth(credentials: User): Promise<any> {
     console.log("User: +-+ " + JSON.stringify(credentials));
-    /*const myHeaders = new Headers(credentials ? {
+    /!*const myHeaders = new Headers(credentials ? {
       authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
     } : {});
     myHeaders.append('Content-Type', 'application/json');
 
-    console.log("myHeaders: " + JSON.stringify(myHeaders));*/
+    console.log("myHeaders: " + JSON.stringify(myHeaders));*!/
 
     return new Promise((resolve, reject) => {
       this.http
@@ -83,7 +137,7 @@ export class UsersService {
           }
         }))
         .catch(error => reject(error));
-    });
-  }
+    });*/
+
 
 }

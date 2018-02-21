@@ -9,7 +9,7 @@ import {HomeTestComponent} from './components/index/home-test/home-test.componen
 const routes: Routes = [
   {path: 'users', component: UsersComponent},
   {path: 'login', component: LoginFormComponent},
-  {path: 'qqq', component: HomeTestComponent}
+  {path: '', component: HomeTestComponent}
 ]
 
 

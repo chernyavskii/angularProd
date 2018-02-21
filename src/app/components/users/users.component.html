@@ -1,4 +1,26 @@
-<div *ngIf="authenticated()" ><!--[hidden]="authenticated()"-->
+<!--<div *ngIf="authenticated()" >&lt;!&ndash;[hidden]="authenticated()"&ndash;&gt;
+<div style="border: 1px solid red" class="user-component">
+  <h1>User Component</h1>
+  <h2 style="color: forestgreen;">List of users: </h2>
+  <li *ngFor="let user of users" (click)="onSelect(user)">&lt;!&ndash;&lt;!&ndash;routerLink="detail/{{user.id}}"&ndash;&gt;&ndash;&gt;
+    {{user.username}}
+    {{user.password}}
+
+  </li>
+</div>
+
+<div style="border: 1px solid blue" *ngIf="newUser">
+  {{newUser.id}}
+  {{newUser.username}}
+</div>
+
+<app-user-detail [user]="selectedUser"></app-user-detail>
+
+<app-registration-form (newUserEvent)="updateListOfUsers($event)" ></app-registration-form>
+</div>
+<div *ngIf="!authenticated()" >&lt;!&ndash;[hidden]="!authenticated()"&ndash;&gt;
+  <p>Login to see your greeting</p>
+</div>-->
 <div style="border: 1px solid red" class="user-component">
   <h1>User Component</h1>
   <h2 style="color: forestgreen;">List of users: </h2>
@@ -17,7 +39,3 @@
 <app-user-detail [user]="selectedUser"></app-user-detail>
 
 <app-registration-form (newUserEvent)="updateListOfUsers($event)" ></app-registration-form>
-</div>
-<div *ngIf="!authenticated()" ><!--[hidden]="!authenticated()"-->
-  <p>Login to see your greeting</p>
-</div>
