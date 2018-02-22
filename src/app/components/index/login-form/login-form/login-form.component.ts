@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+/*
 import {Http} from '@angular/http';
+*/
 import {Router} from '@angular/router';
 import {UsersService} from '../../../../services/user/users.service';
 import {User} from '../../../../models/user';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-login-form',
@@ -11,32 +14,35 @@ import {User} from '../../../../models/user';
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor(private userService: UsersService, private http: Http, private router: Router) { }
+  constructor(private userService: UsersService, private http: HttpClient, private router: Router) { }
 
   user = new User();
 
-
   ngOnInit() {
   }
-
-/*  login() {
-    this.userService.testAuth(this.user)
-    /!* .then(res => {
+/////ТУТ
+  login() {
+    this.userService.testAuth(this.user);
+    /* .then(res => {
        return this.router.navigateByUrl('users');
      })
      .catch(err => {
        return this.router.navigateByUrl('login');
-     });*!/
+     });*/
     return  this.router.navigateByUrl('users');
-  }*/
+  }
 
-  login() {
+
+
+  /*login() {
     this.userService.testAuth(this.user)
-      /*.toPromise()*/
-/*
-     .then(res => {
-*/
-    return this.router.navigateByUrl('users');
+      .then(res => this.auth === res );
+    if (this.auth) {
+      return this.router.navigateByUrl('users');
+    } else {
+      return this.router.navigateByUrl('');
+    }*/
+
 /*
 return  this.router.navigateByUrl('users');
 */
@@ -47,8 +53,4 @@ return  this.router.navigateByUrl('users');
         this.router.navigateByUrl('/login');
 
       });*/
-  }
-
-
-
 }
